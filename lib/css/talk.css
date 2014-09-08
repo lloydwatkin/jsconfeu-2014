@@ -1,0 +1,26 @@
+div.controls {
+    width: 300px;
+}
+
+div.controls div {
+    border: 1px solid #0000ff;
+    padding: 10px;
+    text-align: center;
+    width: 150px;
+    margin: 0 auto;
+    cursor: pointer;
+}
+
+div.controls div.left, div.controls div.right {
+    float: left;
+    width: 127px;
+    margin: 5px 0;
+}
+
+div.controls div.down {
+    clear: both;
+}
+
+.hidden {
+    /* display: none; */
+}

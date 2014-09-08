@@ -1,6 +1,6 @@
 <html>
 <head>
-    <!--
+<!--
 /**
  *
  *
@@ -13,25 +13,111 @@
     <script type="text/javascript" src="https://xmpp-ftw.jit.su/scripts/primus.js"></script>
     <script type="text/javascript" src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
     <script type="text/javascript" src="lib/js/md5.js"></script>
+    <link rel="stylesheet" href="lib/css/talk.css">
 </head>
 <body>
     
     <h1>XMPP Spheres demo</h1>
     <h2>Login</h2>
     
+    <div class="login">
     <p>I've set up some accounts on a couple of different servers. All you need to do is select one and click login:</p>
     
-    <select name="server">
+    <select class="server">
         <option value="spheres@buddycloud.org">buddycloud.org</option>
         <option value="spheres@evilprofessor.co.uk">evilprofessor.co.uk</option>
     </select>
 
     <button class="login">Login</button>
+    </div>
+    <p class="hidden user-details">You are connected as <span class="jid">user@example.com/resource</span></p>
     
     <h2>Controls</h2>
     
-    <p>Once logged in the controls will appear.</p>
+    <p class="controls-info">Once logged in the controls will appear.</p>
     
+    <div class="hidden controls">
+        <div class="up">UP</div>
+        <div class="left">LEFT</div>
+        <div class="right">RIGHT</div>
+        <div class="down">DOWN</div>
+    </div>
+    
+    <script type="text/javascript">
+    var socket = new Primus('https://xmpp-ftw.jit.su')
+    var jid = null
+    var hash = null
+    var connected = false
+    $('button.login').click(function() {
+        console.debug('Login clicked')
+        socket.on('xmpp.connection', function(details) {
+           console.log('Connected', details)
+           jid = details.jid
+           hash = md5(jid).substr(0, 6)
+           hideLogin()
+           showControls()
+           connected = true
+        })
+        var user = $('.server option:selected').val()
+        var password = 'spherespassword'
+        if (-1 !== 'evilprofessor.co.uk') {
+            password = 'spheresdemo'
+        }
+        var auth = {
+            jid: user,
+            password: password
+        }
+        socket.send('xmpp.login', auth)
+    })
+    
+    $('div.up').click(function() {
+        sendMessage('UP')
+    })
+    $('div.down').click(function() {
+        sendMessage('DOWN')
+    })
+    $('div.left').click(function() {
+        sendMessage('LEFT')
+    })
+    $('div.right').click(function() {
+        sendMessage('RIGHT')
+    })
+    
+    var sendMessage = function(direction) {
+        console.debug('Sending ' + direction)
+        socket.send(
+            'xmpp.chat',
+            {
+                to: 'lloyd@buddycloud.org',
+                content: direction
+            }
+        )
+    }
+    
+    socket.on('xmpp.error', function(error) {
+        console.error(error)
+    })
+    
+    socket.on('xmpp.connection.error', function(error) {
+        console.error('Connection error', error)
+    })
+    
+    var hideLogin = function() {
+        $('div.login').hide()
+        $('p.user-details .jid').html(
+            jid.user + '@' + jid.domain + '/' +
+            jid.resource + ' ::: ' + '<span style="color:#' +
+            hash + ';">' + 
+            hash + '</span>'
+        )
+        $('p.user-details').show()
+    }
+        
+    var showControls = function() {
+        $('.controls-info').hide()
+        $('.controls').show()
+    }
+    </script>
     
 </body>
 </html>
