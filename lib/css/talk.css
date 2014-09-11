@@ -25,6 +25,10 @@ div.controls div.down {
     display: none;
 }
 
+body#listener {
+    postion: absolute;
+}
+
 body#listener div {
     position: absolute;
     height: 75px;
@@ -34,4 +38,6 @@ body#listener div {
     text-align: center;
     line-height: 75px;
     border-style: solid;
+    top: 300px;
+    left: 100px;
 }
