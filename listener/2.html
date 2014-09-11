@@ -29,6 +29,13 @@
         console.log('Connected!', client)
         jid = client.jid 
     })
+    socket.send(
+        'xmpp.login',
+        {
+            jid: 'lloyd@buddycloud.org',
+            password: localStorage.getItem('password')
+        }
+    )
     var create = function(jid) { 
         var hash = md5(JSON.stringify(jid))
         var id = $('#' + hash)
