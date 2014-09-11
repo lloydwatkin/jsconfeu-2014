@@ -9,7 +9,6 @@ div.controls div {
     width: 150px;
     margin: 0 auto;
     cursor: pointer;
-    display: none;
 }
 
 div.controls div.left, div.controls div.right {
