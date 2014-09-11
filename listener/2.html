@@ -54,7 +54,7 @@
         create(message.from)
         var hash = md5(JSON.stringify(message.from))
         var element = $('#' + hash)
-        console.log(element.css('top'))
+
         switch (message.content.toLowerCase()) {
             case 'up':
                 element.animate({ 'top': '-=10px' })
