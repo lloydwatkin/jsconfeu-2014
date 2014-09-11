@@ -56,16 +56,16 @@
         var element = $('#' + hash)
         switch (message.content.toLowerCase()) {
             case 'up':
-                element.css('top', element.css('top') + 10)
+                element.animate({ 'top', '-=10px' })
                 break
             case 'down':
-                element.css('top', element.css('top') - 10)
+                element.animate({ 'top', '+=10px' })
                 break
             case 'left':
-                element.css('left', element.css('left') - 10)
+                element.animate({ 'left', '-=10px' })
                 break
             case 'right':
-                element.css('left', element.css('top') + 10)
+                element.animate({ 'left', '+=10px' })
                 break
         }
     })
