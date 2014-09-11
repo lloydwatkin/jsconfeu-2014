@@ -28,7 +28,7 @@
     socket.on('xmpp.connection', function(client) {
         console.log('Connected!', client)
         jid = client.jid 
-        socket.send('xmpp.presence', {})
+        socket.send('xmpp.presence', { show: 'chat' })
     })
     socket.send(
         'xmpp.login',
