@@ -29,7 +29,7 @@ body#listener {
     postion: absolute;
 }
 
-body#listener div {
+#listener div {
     position: absolute;
     height: 75px;
     width: 75px;
