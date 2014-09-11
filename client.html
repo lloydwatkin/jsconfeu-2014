@@ -127,6 +127,7 @@
         $('#listener div').css(
             'border-color', '#' + md5(jid.domain).substr(0, 6)
         )
+        $('#listener div').html(hash.substr(0, 6))
         $('#listener').show()
         $('p.user-details').show()
     }
