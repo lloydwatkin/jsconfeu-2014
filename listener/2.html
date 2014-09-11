@@ -46,7 +46,7 @@
         var id = $('#' + hash)
         var border = md5(jid.domain).substr(0, 6)
         id.css('border-color', '#' + border)
-        id.css('text-color', '#' + hash.substr(0, 6))
+        id.css('color', '#' + hash.substr(0, 6))
     }
     
     socket.on('xmpp.chat.message', function(message) {
