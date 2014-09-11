@@ -22,7 +22,7 @@ div.controls div.down {
 }
 
 .hidden {
-    /* display: none; */
+    display: none;
 }
 
 body#listener div {
