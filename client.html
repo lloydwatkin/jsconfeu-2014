@@ -89,13 +89,14 @@
     })
     
     var sendMessage = function(direction) {
-        console.debug('Sending ' + direction)
+        var payload = {
+            to: 'lloyd@buddycloud.org',
+            content: direction
+        }
+        console.debug('Sending ', payload)
         socket.send(
             'xmpp.chat',
-            {
-                to: 'lloyd@buddycloud.org',
-                content: direction
-            }
+            payload
         )
     }
     

@@ -1,0 +1,67 @@
+<html>
+<head>
+<!--
+/**
+ *
+ *
+ *  You couldn't help but look could you :)
+ *
+ *
+**/
+-->
+    <title>XMPP Spheres demo</title>
+    <script type="text/javascript" src="https://xmpp-ftw.jit.su/scripts/primus.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+    <script type="text/javascript" src="../lib/js/md5.js"></script>
+    <link rel="stylesheet" href="../lib/css/talk.css">
+</head>
+<body>
+    
+    <h1>XMPP Spheres demo - Listener</h1>
+    
+    <script type="text/javascript">
+    var socket = new Primus('https://xmpp-ftw.jit.su')
+
+    socket.on('xmpp.error', function(error) {
+        console.error('Error', error)
+    })
+    socket.on('xmpp.connection', function(client) {
+        console.log('Connected!', client)
+        jid = client.jid 
+    })
+    var create = function(jid) { 
+        var hash = md5(JSON.stringify(jid))
+        var id = $('#' + hash)
+        if (id.length !== 0) return
+        $('body').append('<div id="' + hash + '">' +
+            hash.substr(0, 6) + '</div>')
+        var id = $('#' + hash)
+        var border = md5(jid.domain).substr(0, 6)
+        id.css('border-color', '#' + border)
+        id.css('text-color', '#' + hash.substr(0, 6))
+    }
+    
+    socket.on('xmpp.chat.message', function(message) {
+        console.log('Incoming', message)
+        create(message.from)
+        var hash = md5(JSON.stringify(message.from))
+        var element = $('#' + hash)
+        switch (message.content.toLowerCase()) {
+            case 'up':
+                element.css('top', element.css('top') + 10)
+                break
+            case 'down':
+                element.css('top', element.css('top') - 10)
+                break
+            case 'left':
+                element.css('left', element.css('left') - 10)
+                break
+            case 'right':
+                element.css('left', element.css('top') + 10)
+                break
+        }
+    })
+    </script>
+    
+</body>
+</html>
