@@ -44,3 +44,10 @@ body#listener div {
     top: 300px;
     left: 100px;
 }
+
+img {
+    float: right;
+    width: 250px;
+    height: 250px;
+    margin-top: -75px;
+}
