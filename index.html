@@ -2,20 +2,21 @@
 <html lang="en">
 
 	<head>
-		<meta charset="utf-8">
+		<meta charset="utf-8"/>
 
 		<title>Realtime using XMPP - JSConfEU 2014</title>
 
-		<meta name="description" content="A talk about doing realime using XMPP">
-		<meta name="author" content="Lloyd Watkin">
+		<meta name="description" content="A talk about doing realime using XMPP"/>
+		<meta name="author" content="Lloyd Watkin"/>
 
 		<meta name="apple-mobile-web-app-capable" content="yes" />
 		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 
-		<link rel="stylesheet" href="css/reveal.min.css">
-		<link rel="stylesheet" href="css/theme/default.css" id="theme">
+		<link rel="stylesheet" href="css/reveal.min.css"/>
+		<link rel="stylesheet" href="css/theme/default.css" id="theme"/>
+        <link rel="stylesheet" href="lib/css/style.css"/>
 
 		<!-- For syntax highlighting -->
 		<link rel="stylesheet" href="lib/css/zenburn.css">
@@ -49,18 +50,19 @@
 				</section>
 
 				<section>
-					<h1>What is XMPP?</h1>
+					<h1 class="xmpp-green">What is XMPP?</h1>
 
 					<aside class="notes">
                         Extensible Messaging and Presence Protocol (XMPP) <br/>
 						Formly known as Jabber<br/>
                         Created in 1998 at a time of multiple IM systems<br/>
                         Set of standards not an implementation<br/>
+                        "Federated" - no additional code
 					</aside>
 				</section>
                 
                 <section>
-                    <h1>Who uses it?</h1>
+                    <h1 class="xmpp-blue">Who uses it?</h1>
                     
                     <aside class="notes">
                     Everyone carrying a smart phone<br/>
@@ -75,35 +77,99 @@
                 
                 <section>
                     <section>
-                    <h1>Why is it important?</h1>
+                    <h1 class="xmpp-orange">Why is it important?</h1>
                     
                         <aside class="notes">
-                        Realtime web grows and grows<br/>
-                        Because of Snowdon information, we're seeing a movement back towards decentralized web and higher security standards<br/>
-                        Scalable<br/>
-                        Creation of more silos - which ultimately repeat the problems we have now<br/>
-                        ...and the mistakes that have been solved<br/>
-                        Social networks of small numbers aren't fun<br/>
+                        Continuing growth of the realtime web<br/>
+                        Lots of reinventing the wheel + making the same mistakes<br/>
+                        
                         WebRTC is very exciting but no signalling, XMPP gives us this (via Jingle)<br/>
-                        ...and we also get so much extra for "free" (MUC, presence, etc)                   
+                            
+                        We're seeing a movement back towards decentralized web because of privacy/security<br/>
+                        ...and we also get so much extra for "free" (MUC, presence, roster, etc)                   
                         </aside>
                     </section>
+                </section>
+                    
+                    <section>
+                        <section><h1 class="xmpp-green">Fundamentals</h1></section>
+                    
+            <section name="fundamental-stanzas">
+                    <h1 class="xmpp-blue">Stanzas</h1>
+                    <h3 class="xmpp-green">...are snippets of XML</h3>
+                    <br/>
+                    <p class="xmpp-orange">There are three types:<br/>
+                        &lt;message/&gt;, &lt;presence/&gt;, &amp; &lt;iq/&gt;</p>
+                    <aside class="notes">
+                       <p>Message types, 'chat', 'groupchat', 'headline'</p>
+                       <p>Presence - like your online status (online, busy, away, etc)</p>
+                       <p>IQ (information query): GET/SET,  RESULT/ERROR - like basic HTTP verbs</p>
+                   </aside>
+                    </section>
+
+                     <section>
+                        <h2>The <abbr title="Jabber ID">JID</abbr></h2>
+                        <br/>
+                        <h3>[<span class="xmpp-orange">user</span>@] <span class="xmpp-blue">example.org</span> [/<span class="xmpp-green">mobile-phone</span>]</h3>
+                        <br/>
+
+                        <ul>
+                            <li><span class="xmpp-orange">local</span>: The user/device (i.e. client)</li>
+                            <li><span class="xmpp-blue">domain</span>: Server you are addressing</li>
+                            <li><span class="xmpp-green">resource</span>: Multiple connections?</li>
+                        </ul>
+                        <aside class="notes">
+                        <p>Always designed with multiple devices in mind</p>
+                        <p>Each device has a priority - route to the most 'available'</p>
+                    </section>
+
+                    <section>
+
+                        <h1>Clients</h1>
+
+                        <h3 class="xmpp-orange">Thin clients, leave the work to the server</h3>
+                        <h3 class="xmpp-blue">Connect over TCP/BOSH (Long polling)/WebSockets</h3>
+                        <h3 class="xmpp-green">Data is pushed to clients, clients push data</h3>
+
+                    </section>
+
+                    <section>
+
+                        <h1>Servers</h1>
+
+                        <h3 class="xmpp-orange">Routes messages</h3>
+                        <h3 class="xmpp-blue">Allow users to talk across servers</h3>
+                        <h3 class="xmpp-green">Handles authentication and security</h3>
+
+                    </section> 
+
+                    <section>
+
+                        <h1>Components</h1>
+
+                        <h3 class="xmpp-orange">Custom business logic</h3>
+                        <h3 class="xmpp-blue">Server agnostic</h3>
+                        <h3 class="xmpp-green">See <a href="http://github.com/node-xmpp/node-xmpp-component" class="xmpp-green">node-xmpp-component</a></h3>
+
+                    </section>
+                         
+                </section>
                 
                     <section>
-                        <h1>Why don't we see it used by web developers?</h1>
+                        <h1 class="xmpp-blue">Why don't we see it used by web developers?</h1>
                         <aside class="notes">
                         Hint: XML<br/>
                         "Hated" by web developers (SOAP)<br/>
-                        Not so great in the browsers<br/>
+                        Not so great in the browsers (DOM)<br/>
                         Seen as too verbose<br/>
                         JSON isn't extensible!<br/>
-
+                        XML &lt;-&gt; JSON == ugly</->
                         </aside>
                     </section>
                 </section>
                 
                 <section>
-                    <h1>How can we use it to build applications?</h1>
+                    <h1 class="xmpp-orange">How can we use it to build applications?</h1>
                     
                     <h3><a href="https://xmpp-ftw.jit.su">xmpp-ftw</a></h3>
                     <aside class="notes">
@@ -122,9 +188,9 @@
                 </section>
                 
                 <section>
-                <h3>Secure, scalable, federated messaging system</h3>
-                    
-                <h3>Get lots of "extras" for free</h3>
+                <h3 class="xmpp-orange">Secure, scalable, realtime messaging system</h3>
+                <h3 class="xmpp-blue">Allows us to easily rebuild the decentralized web</h3>
+                <h3 class="xmpp-green">Get lots of "extras" for free</h3>
                 <br/><br/>
                 <h3>Thanks, <a href="https://twitter.com/lloydwatkin">@lloydwatkin</a><br/>
                 Slides available @ <a href="https://talks.evilprofessor.co.uk">talks.evilprofessor.co.uk</a></h2>
